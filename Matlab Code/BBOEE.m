@@ -57,9 +57,7 @@ for i=1:PopSize
 end
 
 % Defining the loop
-for l=1:iters
-    fprintf('Iteration:%i\n',l);
-    
+for l=1:iters  
     selected = 0;
     selectedList = [];
     while selected < partition
@@ -141,15 +139,34 @@ for l=1:iters
     end
     
    % Performing Mutation
-      for k=1:PopSize
+%       for k=1:PopSize
+%           for parnum=1:dim
+%               if pmutate > rand
+%                   tempRand = lb + (ub-lb) * rand;
+%                   Island(k,parnum) = tempRand(1,1);
+%               end
+%           end
+%       end
+      
+      
+    % Mutation
+    PopA = PopSize*(3/4);
+    for k=1:PopA
           for parnum=1:dim
               if pmutate > rand
-                  tempRand = lb + (ub-lb) * rand;
-                  % Island(k,parnum) = lb + (ub-lb) * rand;
+                  tempRand = median(population(k,:));
                   Island(k,parnum) = tempRand(1,1);
               end
           end
-      end
+    end
+     
+    % Part B mutation
+    for k=PopA:PopSize
+        randIndex = randi([1 dim]);
+        tempRand = median(population(k,:));
+        Island(k,randIndex) = tempRand(1,1);
+    end
+      
 
     % Performing the bound checking
     for i=1:PopSize
@@ -206,9 +223,9 @@ for l=1:iters
     MinCost(l) = fit(1);
     Bestpopulation=population(1,:);
     gBestScore=fit(1);
-
+    
     % Displaying the best fitness of each iteration
-    %fprint(('At iteration '+ (l+1)+ ' the best fitness is '+(gBestScore)));
+    fprintf('Iteration: %i Best Fitness: %i\n',l,gBestScore);
     
     end
 end

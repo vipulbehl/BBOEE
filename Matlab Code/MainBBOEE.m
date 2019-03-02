@@ -18,7 +18,7 @@ fx = [100 200 300 400 500 600 700 800 900 1000 1100 1200 1300 1400 1500 1600 170
 % Loop for various dimensions
 for k=1:1
     % Loop for cec functions
-    for i=1:1
+    for i=5:5
         func_num=i;
         for j=1:runs
             fprintf('Function: %i Run: %i \n',i,j);
