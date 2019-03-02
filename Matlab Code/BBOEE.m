@@ -15,6 +15,7 @@ mu = zeros(1,PopSize);
 lambda1 = zeros(1,PopSize);
 MinCost = zeros(1,iters);
 Bestpopulation = zeros(1,dim);
+partition = 20;
     
 
 % Initalizing population
@@ -34,7 +35,7 @@ for i=1:PopSize
     for j=1:dim
         temp2=temp(j);
         if(temp2>ub)
-            temp2=ub
+            temp2=ub;
         end
         if(temp2<lb)
             temp2= lb;
@@ -57,32 +58,88 @@ end
 
 % Defining the loop
 for l=1:iters
+    fprintf('Iteration:%i\n',l);
+    
+    selected = 0;
+    selectedList = [];
+    while selected < partition
+        index = randi([1 PopSize]);
+        if ~ismember(index,selectedList)
+            selectedList = [selectedList,index];
+            selected = selected + 1;
+        end
+        
+    end
+    
     % Defining the Elite Solutions
     for j=1:Keep
         EliteSolution(j,:)=population(j,:);
         EliteCost(j)=fit(j);
     end
 
-    % Performing Migration operator
+    % Performing Migration operation on Group A
     for k=1:PopSize
-        for j=1:dim
-            if rand < lambda1(k)
-                % Performing Roulette Wheel
-                RandomNum = rand * sum(mu);
-                Select = mu(2);
-                SelectIndex = 1;
-                while (RandomNum > Select) && (SelectIndex < (PopSize-1))
-                    SelectIndex = SelectIndex + 1;
-                    Select = Select + mu(SelectIndex);
+        if ~ismember(k,selectedList)
+            for j=1:dim
+                if rand() < lambda1(k)
+                    RandomNum = rand()*sum(mu);
+                    Select = mu(1);
+                    SelectIndex = 1;
+                    while (RandomNum > Select) && (SelectIndex < (PopSize-1))
+                     SelectIndex = SelectIndex + 1;
+                     Select = Select + mu(SelectIndex);
+                    end
+                    r = randi([1 PopSize]);
+                    while r == k || r == SelectIndex
+                        r = randi([1 PopSize]);
+                    end
+                     Island(k,j) = population(SelectIndex,j);
+                else
+                    Island(k,j) = population(k,j);
                 end
-
-                Island(k,j) = population(SelectIndex,j);
+            end
+        end
+    end
+    
+    % Performing Migration operation on Group B
+    selectedList = selectedList(randperm(partition));
+    for k=1:partition
+        for j=1:dim
+            if rand() < lambda1(k)
+                if k==1
+                    previous = partition;
+                    next1 = k+1;
+                elseif k == partition
+                    previous = k-1;
+                    next1 = 1;
+                else
+                    previous = k-1;
+                    next1 = k+1;
+                end
+                
+                if mu(selectedList(previous)) > mu(selectedList(next1))
+                    SelectIndex = selectedList(previous);
+                else
+                    SelectIndex = selectedList(next1);
+                end
+                
+                if rand() < mu(SelectIndex)
+                    r = randi([1 PopSize]);
+                    while r == k || r == SelectIndex
+                        r = randi([1 PopSize]);
+                    end
+                    tempRange = population(SelectIndex,j)-population(r,j);
+                    tempRand = -tempRange+rand(1,1)*(2*tempRange);
+                    Island(k,j) = population(SelectIndex,j) + tempRand;
+                else
+                    Island(k,j) = population(k,j);
+                end
             else
                 Island(k,j) = population(k,j);
             end
         end
     end
-
+    
    % Performing Mutation
       for k=1:PopSize
           for parnum=1:dim
@@ -93,8 +150,6 @@ for l=1:iters
               end
           end
       end
-      
-      %disp(Island)
 
     % Performing the bound checking
     for i=1:PopSize
@@ -107,7 +162,7 @@ for l=1:iters
             if(temp2<lb)
                 temp2= lb;
             end
-            temp(j)=temp2;
+            temp(j)=temp2(1,1);
         end
         Island(i,:) = temp;
     end
