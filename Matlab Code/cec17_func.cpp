@@ -271,7 +271,8 @@ void cec17_test_func(double *x, double *f, int nx, int mx,int func_num)
 		{
 		case 1:
 			bent_cigar_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=100.0;
+			f[i] = f[i]/10000000000;
+            f[i]+=100.0;
 			break;
 		case 2:
 			//sum_diff_pow_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
@@ -280,115 +281,137 @@ void cec17_test_func(double *x, double *f, int nx, int mx,int func_num)
 			break;
 		case 3:
 			zakharov_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=300.0;
+			f[i] = f[i]/10000000000;
+            f[i]+=300.0;
 			break;
 		case 4:
 			rosenbrock_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=400.0;
+			f[i] = f[i]/1000;
+            f[i]+=400.0;
 			break;
 		case 5:
 			rastrigin_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=500.0;
+			f[i] = f[i]/100;
+            f[i]+=500.0;
 			break;
 		case 6:
 			schaffer_F7_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=600.0;
+			f[i] = f[i]/10;
+            f[i]+=600.0;
 			break;
 		case 7:
 			bi_rastrigin_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=700.0;
+			f[i] = f[i]/10;
+            f[i]+=700.0;
 			break;
 		case 8:
 			step_rastrigin_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=800.0;
+			f[i] = f[i]/100;
+            f[i]+=800.0;
 			break;
 		case 9:
 			levy_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=900.0;
+			f[i] = f[i]/10000;
+            f[i]+=900.0;
 			break;
 		case 10:
 			schwefel_func(&x[i*nx],&f[i],nx,OShift,M,1,1);
-			f[i]+=1000.0;
+            f[i] = f[i];
+            f[i]+=1000.0;
 			break;
 		case 11:
 			hf01(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1100.0;
+			f[i] = f[i]/1000;
+            f[i]+=1100.0;
 			break;
 		case 12:
 			hf02(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1200.0;
+			f[i] = f[i]/10000000;
+            f[i]+=1200.0;
 			break;
 		case 13:
 			hf03(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1300.0;
+			f[i] = f[i]/10000000;
+            f[i]+=1300.0;
 			break;
 		case 14:
 			hf04(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1400.0;
+			f[i] = f[i]/100000;
+            f[i]+=1400.0;
 			break;
 		case 15:
 			hf05(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1500.0;
+			f[i] = f[i]/10000000;
+            f[i]+=1500.0;
 			break;
 		case 16:
 			hf06(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1600.0;
+			f[i] = f[i]/100;
+            f[i]+=1600.0;
 			break;
 		case 17:
 			hf07(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1700.0;
+			f[i] = f[i]/100;
+            f[i]+=1700.0;
 			break;
 		case 18:
 			hf08(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1800.0;
+			f[i] = f[i]/1000000;
+            f[i]+=1800.0;
 			break;
 		case 19:
 			hf09(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=1900.0;
+			f[i] = f[i]/100000000;
+            f[i]+=1900.0;
 			break;
 		case 20:
 			hf10(&x[i*nx],&f[i],nx,OShift,M,SS,1,1);
-			f[i]+=2000.0;
+			f[i] = f[i]/10;
+            f[i]+=2000.0;
 			break;
 		case 21:
 			cf01(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2100.0;
+            f[i]+=2100.0;
 			break;
 		case 22:
 			cf02(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2200.0;
+			f[i] = f[i]/10;
+            f[i]+=2200.0;
 			break;
 		case 23:
 			cf03(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2300.0;
+            f[i]+=2300.0;
 			break;
 		case 24:
 			cf04(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2400.0;
+            f[i]+=2400.0;
 			break;
 		case 25:
 			cf05(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2500.0;
+            f[i]+=2500.0;
 			break;
 		case 26:
 			cf06(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2600.0;
+            f[i]+=2600.0;
 			break;
 		case 27:
 			cf07(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2700.0;
+            f[i]+=2700.0;
 			break;
 		case 28:
 			cf08(&x[i*nx],&f[i],nx,OShift,M,1);
-			f[i]+=2800.0;
+			f[i] = f[i]/10;
+            f[i]+=2800.0;
 			break;
 		case 29:
 			cf09(&x[i*nx],&f[i],nx,OShift,M,SS,1);
-			f[i]+=2900.0;
+			f[i] = f[i]/10;
+            f[i]+=2900.0;
 			break;
 		case 30:
 			cf10(&x[i*nx],&f[i],nx,OShift,M,SS,1);
-			f[i]+=3000.0;
+			f[i] = f[i]/100000;
+            f[i]+=3000.0;
 			break;
 		default:
 			printf("\nError: There are only 30 test functions in this test suite!\n");
